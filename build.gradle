@@ -1,0 +1,25 @@
+// gradle이 버전설정하고 라이브러리 땡겨오는구나 정도만 알면 됨
+plugins {
+	id 'org.springframework.boot' version '2.5.0-M3'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'hello'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral() // 라이브러리를 땡겨오는 곳 설정
+	maven { url 'https://repo.spring.io/milestone' }
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test { // 요즘 테스트를 굉장히 중시한다는 것을 알 수 있음
+	useJUnitPlatform()
+}
