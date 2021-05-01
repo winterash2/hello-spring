@@ -22,25 +22,39 @@ public class SpringConfig {
 //        this.dataSource = dataSource;
 //    }
 
-    private EntityManager em;
+//    private EntityManager em;
+//
+//    @Autowired
+//    public SpringConfig(EntityManager em) {
+//        this.em = em;
+//    }
+
+    // 그냥 이렇게 인젝션 받으면 SpringDataJpaMemberRepository에서 자동으로 빈에 등록된 것이 인젝션 됨
+    private final MemberRepository memberRepository;
 
     @Autowired
-    public SpringConfig(EntityManager em) {
-        this.em = em;
+    public SpringConfig(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
 
+//    @Bean
+//    public MemberService memberService() {
+//        return new MemberService(memberRepository());
+//    }
+    // 여기에도 memberRepository 의존관계를 세팅
     @Bean
     public MemberService memberService() {
-        return new MemberService(memberRepository());
+        return new MemberService(memberRepository);
     }
 
-    @Bean
-    public MemberRepository memberRepository(){ // MemberRepository는 인터페이스고
-//        return new MemoryMemberRepository(); // 구현체는 MemoryMemberRepository
-//        return new JdbcMemberRepository(getDataSource());
-//        return new JdbcTemplateMemberRepository(getDataSource());
-        return new JpaMemberRepository(em);
-    }
+
+//    @Bean
+//    public MemberRepository memberRepository(){ // MemberRepository는 인터페이스고
+////        return new MemoryMemberRepository(); // 구현체는 MemoryMemberRepository
+////        return new JdbcMemberRepository(getDataSource());
+////        return new JdbcTemplateMemberRepository(getDataSource());
+//        return new JpaMemberRepository(em);
+//    }
 
 
     // 보통은 자동으로 의존관계를 설정해주는 Service, Repository, Autowired 등을 사용하지만
