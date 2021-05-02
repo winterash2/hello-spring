@@ -30,6 +30,7 @@ public class MemberController {
         // bean of type 'hello.hellospring.service.MemberService' that could not be found.
         // 이런 오류가 뜨는데 그 이유는 스프링 컨테이너에 memberService가 없기 때문임
         this.memberService = memberService;
+        System.out.println("MmemberService = " + memberService.getClass());
     }
     // 위의 방식은 생성자 주입 방식임
     // 그 이외에도 setter 주입, 필드 주입이 있음

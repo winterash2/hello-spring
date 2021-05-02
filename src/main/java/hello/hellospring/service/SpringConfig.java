@@ -1,6 +1,7 @@
 package hello.hellospring.service;
 
 
+import hello.hellospring.aop.TimeTraceAop;
 import hello.hellospring.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -46,6 +47,14 @@ public class SpringConfig {
     public MemberService memberService() {
         return new MemberService(memberRepository);
     }
+
+    // AOP관련된 것은 특별한 것이기 떄문에 스프링빈에 직접 등록해서 사용하는 것이 좋음
+    // 이걸 보고 AOP가 등록되서 사용되는구나 알 수 있음
+    // Component 스캔 써도 됨 @Component
+//    @Bean
+//    public TimeTraceAop timeTraceAop(){
+//        return new TimeTraceAop();
+//    }
 
 
 //    @Bean

@@ -4,5 +4,24 @@ jdbc:h2:tcp://localhost/~/test
 
 비즈니스의 핵심 관심 사항과 수행 시간 체크 등의 비즈니스와는 관련 없지만 공통 관심 사항인 것은
 분리를 해야 코드를 유지보수하기 쉽다
-AOP란 Aspect Oriented Programming
+AOP란 Aspect Oriented Programming(관점 지향 프로그래밍)
 공통 관심 사항과 핵심 관심 사항을 분리하는 것을 의히한다
+
+AOP를 적용하면 원래 호출을 직접 하던 애가 진짜를 호출하지 않고
+진짜 스프링 빈 말고 가짜 스프링 빈을 앞에 세워둠
+가짜를 타면 내부적인 것들이 수행되고 그 다음에 진짜가 수행됨
+프록시라는 기술을 이용함
+
+MemberController에서 MemberService를 생성하여 인젝션 하는데
+AOP를 적용하면 본체가 아니라
+class hello.hellospring.service.MemberService$$EnhancerBySpringCGLIB$$de89008 이런게 나옴
+본체가 아니라 CGLIB라는 라이브러리를 사용하는데
+멤버 서비스를 가지고 복제를 해서 코드를 조작하는 기술임
+스프링 컨테이너가 AOP가 적용이 되면 어? 너 멤버서비스에 AOP가 적용되야하네? 이러면 가짜(프록시)를 가져다놓고
+얘를 통해서 AOP가 실행이 되고 joinPoint.proceed()가 실행이 되면 그 때 이제 진짜를 호출함
+
+원래
+실제 - helloController - 만 있는데
+- 프록시 helloController - 실제 helloController - 이렇게 연결을 함
+자바 코드를 컴파일 시간에 아예 변경을 시켜버리는 기술도 있음
+

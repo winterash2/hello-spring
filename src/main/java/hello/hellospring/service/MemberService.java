@@ -43,17 +43,10 @@ public class MemberService { // ctrl shift T -> 테스트 자동으로 만들어
         // 3번 방법. 메소드를 분리하는게 좋으니까 이렇게 하는게 더 좋음.
         // ctrl alt shift T 단축키로 리팩토링 관련 메뉴들을 불러오고 Extract Method를 선택
 
-        long start = System.currentTimeMillis();
-        try{
-            validateDuplicateMember(member);
+        validateDuplicateMember(member);
 
-            memberRepository.save(member);
-            return member.getId();
-        } finally {
-            long finish = System.currentTimeMillis();
-            long timeMs = finish - start;
-            System.out.println("join = " + timeMs + "ms");
-        }
+        memberRepository.save(member);
+        return member.getId();
 
     }
 
@@ -69,15 +62,7 @@ public class MemberService { // ctrl shift T -> 테스트 자동으로 만들어
         // repository에 보면 findById 이런 식으로 기능에 가깝게 이름을 지음
         // 이렇게해야 기획자와 개발자간의 소통이 더 원활하게 됨
 
-        // 이런 식으로
-        long start = System.currentTimeMillis();
-        try{
-            return memberRepository.findAll();
-        } finally {
-            long finish = System.currentTimeMillis();
-            long timeMs = finish - start;
-            System.out.println("findMembers " + timeMs + "ms");
-        }
+        return memberRepository.findAll();
 
     }
 
